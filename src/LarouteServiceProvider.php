@@ -75,8 +75,8 @@ class LarouteServiceProvider extends ServiceProvider
                 'command.laroute.generate',
                 static function ($app) {
                     /* @var Application $app */
-                    $config    = $app['config'];
-                    $routes    = new Routes(
+                    $config = $app['config'];
+                    $routes = new Routes(
                         $app['router']->getRoutes(),
                         $config->get('laroute.filter', 'all'),
                         $config->get('laroute.action_namespace', '')
