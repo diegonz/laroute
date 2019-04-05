@@ -2,9 +2,9 @@
 
 namespace Lord\Laroute\Routes;
 
+use Illuminate\Support\Arr;
 use Illuminate\Routing\Route;
 use Illuminate\Routing\RouteCollection;
-use Illuminate\Support\Arr;
 use Lord\Laroute\Routes\Exceptions\ZeroRoutesException;
 
 class Collection extends \Illuminate\Support\Collection
@@ -72,11 +72,11 @@ class Collection extends \Illuminate\Support\Collection
      */
     protected function getRouteInformation(Route $route, $filter, $namespace): array
     {
-        $host    = $route->domain();
+        $host = $route->domain();
         $methods = $route->methods();
-        $uri     = $route->uri();
-        $name    = $route->getName();
-        $action  = $route->getActionName();
+        $uri = $route->uri();
+        $name = $route->getName();
+        $action = $route->getActionName();
         $laroute = Arr::get($route->getAction(), 'laroute', null);
 
         if (! empty($namespace)) {

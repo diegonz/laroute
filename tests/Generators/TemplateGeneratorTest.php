@@ -2,14 +2,14 @@
 
 namespace Lord\Laroute\Tests\Generators;
 
-use Illuminate\Contracts\Filesystem\FileNotFoundException;
-use Illuminate\Filesystem\Filesystem;
-use Lord\Laroute\Compilers\CompilerInterface;
-use Lord\Laroute\Generators\GeneratorInterface;
-use Lord\Laroute\Generators\TemplateGenerator;
 use Mockery;
 use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
+use Illuminate\Filesystem\Filesystem;
+use Lord\Laroute\Compilers\CompilerInterface;
+use Lord\Laroute\Generators\TemplateGenerator;
+use Lord\Laroute\Generators\GeneratorInterface;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
 class TemplateGeneratorTest extends TestCase
 {
