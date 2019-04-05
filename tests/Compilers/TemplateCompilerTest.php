@@ -2,9 +2,9 @@
 
 namespace Lord\Laroute\Tests\Compilers;
 
-use Lord\Laroute\Compilers\TemplateCompiler;
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Lord\Laroute\Compilers\TemplateCompiler;
 use Lord\Laroute\Compilers\CompilerInterface;
 
 class TemplateCompilerTest extends TestCase
@@ -20,7 +20,7 @@ class TemplateCompilerTest extends TestCase
 
     public function testItIsOfTheCorrectInterface(): void
     {
-        /** @noinspection PhpParamsInspection */
+        /* @noinspection PhpParamsInspection */
         $this->assertInstanceOf(CompilerInterface::class, $this->compiler);
     }
 
@@ -41,7 +41,7 @@ class TemplateCompilerTest extends TestCase
     protected function mock($class)
     {
         $mock = Mockery::mock($class);
-        /** @noinspection PhpUndefinedFieldInspection */
+        /* @noinspection PhpUndefinedFieldInspection */
         $this->app->instance($class, $mock);
 
         return $mock;

@@ -2,13 +2,13 @@
 
 namespace Lord\Laroute\Tests\Generators;
 
-use Illuminate\Contracts\Filesystem\FileNotFoundException;
-use Illuminate\Filesystem\Filesystem;
-use Lord\Laroute\Compilers\CompilerInterface;
-use Lord\Laroute\Generators\GeneratorInterface;
-use Lord\Laroute\Generators\TemplateGenerator;
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Illuminate\Filesystem\Filesystem;
+use Lord\Laroute\Compilers\CompilerInterface;
+use Lord\Laroute\Generators\TemplateGenerator;
+use Lord\Laroute\Generators\GeneratorInterface;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
 class TemplateGeneratorTest extends TestCase
 {
@@ -25,13 +25,13 @@ class TemplateGeneratorTest extends TestCase
         $this->compiler = $this->mock(CompilerInterface::class);
         $this->filesystem = $this->mock(Filesystem::class);
 
-        /** @noinspection PhpParamsInspection */
+        /* @noinspection PhpParamsInspection */
         $this->generator = new TemplateGenerator($this->compiler, $this->filesystem);
     }
 
     public function testItIsOfTheCorrectInterface(): void
     {
-        /** @noinspection PhpParamsInspection */
+        /* @noinspection PhpParamsInspection */
         $this->assertInstanceOf(GeneratorInterface::class, $this->generator);
     }
 

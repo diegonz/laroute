@@ -12,7 +12,6 @@ interface GeneratorInterface
      *
      * @param $compiler   Compiler
      * @param $filesystem Filesystem
-     *
      */
     public function __construct(Compiler $compiler, Filesystem $filesystem);
 
@@ -25,5 +24,5 @@ interface GeneratorInterface
      *
      * @return string
      */
-    public function compile($templatePath, Array $templateData, $filePath): string;
+    public function compile($templatePath, array $templateData, $filePath): string;
 }
