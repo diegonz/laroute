@@ -3,11 +3,11 @@
 namespace Lord\Laroute\Console\Commands;
 
 use Exception;
-use Illuminate\Config\Repository as Config;
 use Illuminate\Console\Command;
-use Lord\Laroute\Generators\GeneratorInterface as Generator;
+use Illuminate\Config\Repository as Config;
 use Lord\Laroute\Routes\Collection as Routes;
 use Symfony\Component\Console\Input\InputOption;
+use Lord\Laroute\Generators\GeneratorInterface as Generator;
 
 class LarouteGeneratorCommand extends Command
 {

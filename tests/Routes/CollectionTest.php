@@ -3,10 +3,10 @@
 namespace Lord\Laroute\Tests\Routes;
 
 use Illuminate\Routing\Route;
-use Illuminate\Routing\RouteCollection;
-use Lord\Laroute\Routes\Collection;
-use Lord\Laroute\Routes\Exceptions\ZeroRoutesException;
 use PHPUnit\Framework\TestCase;
+use Lord\Laroute\Routes\Collection;
+use Illuminate\Routing\RouteCollection;
+use Lord\Laroute\Routes\Exceptions\ZeroRoutesException;
 
 class CollectionTest extends TestCase
 {
@@ -23,7 +23,7 @@ class CollectionTest extends TestCase
     {
         parent::setUp();
 
-        $this->testRoute = new Route('GET', 'test', ['controller' => "laroute\\TestAction"]);
+        $this->testRoute = new Route('GET', 'test', ['controller' => 'laroute\\TestAction']);
         $this->routeCollection = new RouteCollection();
         $this->routeCollection->add($this->testRoute);
     }
