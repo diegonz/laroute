@@ -2,10 +2,10 @@
 
 namespace Lord\Laroute\Tests\Compilers;
 
+use Lord\Laroute\Compilers\CompilerInterface;
+use Lord\Laroute\Compilers\TemplateCompiler;
 use Mockery;
 use PHPUnit\Framework\TestCase;
-use Lord\Laroute\Compilers\TemplateCompiler;
-use Lord\Laroute\Compilers\CompilerInterface;
 
 class TemplateCompilerTest extends TestCase
 {
@@ -26,9 +26,9 @@ class TemplateCompilerTest extends TestCase
 
     public function testItCanCompileAString(): void
     {
-        $template = 'Hello $YOU$, my name is $ME$.';
-        $data = ['you' => 'Stranger', 'me' => 'Diego'];
-        $expected = 'Hello Stranger, my name is Diego.';
+        $template = 'Hello $YOU$, my name is $ME$. True is $BOOLEAN$';
+        $data = ['you' => 'Stranger', 'me' => 'John Doe', 'boolean' => true];
+        $expected = 'Hello Stranger, my name is John Doe. True is true';
 
         $this->assertSame($expected, $this->compiler->compile($template, $data));
     }
@@ -36,14 +36,5 @@ class TemplateCompilerTest extends TestCase
     public function tearDown()
     {
         Mockery::close();
-    }
-
-    protected function mock($class)
-    {
-        $mock = Mockery::mock($class);
-        /* @noinspection PhpUndefinedFieldInspection */
-        $this->app->instance($class, $mock);
-
-        return $mock;
     }
 }

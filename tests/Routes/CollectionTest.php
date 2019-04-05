@@ -2,10 +2,11 @@
 
 namespace Lord\Laroute\Tests\Routes;
 
-use Mockery;
-use PHPUnit\Framework\TestCase;
-use Illuminate\Support\Collection;
+use Illuminate\Routing\Route;
 use Illuminate\Routing\RouteCollection;
+use Lord\Laroute\Routes\Collection;
+use Lord\Laroute\Routes\Exceptions\ZeroRoutesException;
+use PHPUnit\Framework\TestCase;
 
 class CollectionTest extends TestCase
 {
@@ -13,45 +14,45 @@ class CollectionTest extends TestCase
 
     protected $routes;
 
+    /**
+     * @var Route
+     */
+    protected $testRoute;
+
     public function setUp()
     {
         parent::setUp();
 
-        $this->routeCollection = $this->mock(RouteCollection::class);
-        $this->routes = $this->createInstance();
+        $this->testRoute = new Route('GET', 'test', ['controller' => "laroute\\TestAction"]);
+        $this->routeCollection = new RouteCollection();
+        $this->routeCollection->add($this->testRoute);
     }
 
-    protected function createInstance()
+    /**
+     * @throws \Lord\Laroute\Routes\Exceptions\ZeroRoutesException
+     */
+    public function testParseRoutesAndGetRouteInformation(): void
     {
-        $this->routeCollection
-            ->shouldReceive('count')
-            ->once()
-            ->andReturn(1)
-            ->shouldReceive('getIterator')
-            ->once()
-            ->andReturn(['Huh?']);
+        $allCollection = new Collection($this->routeCollection, 'all', 'laroute');
+        $allRoutes = $allCollection->toJson();
+        $expectedAllJson = '[{"host":null,"methods":["GET","HEAD"],"uri":"test","name":null,"action":"TestAction"}]';
+        $this->assertEquals($expectedAllJson, $allRoutes);
 
-        return new Collection($this->routeCollection);
+        $onlyCollection = new Collection($this->routeCollection, 'only', 'laroute');
+        $onlyRoutes = $onlyCollection->toJson();
+        $expectedOnlyJson = '[]';
+        $this->assertEquals($expectedOnlyJson, $onlyRoutes);
     }
 
-    public function testItIsAProperInstance()
+    public function testGuardAgainstZeroRoutes(): void
     {
-        /* @noinspection PhpParamsInspection */
-        $this->assertInstanceOf(RouteCollection::class, $this->routeCollection);
-    }
-
-    public function testIFailedAtTestingACollection()
-    {
-        $this->assertTrue(true);
-    }
-
-    public function tearDown()
-    {
-        Mockery::close();
-    }
-
-    protected function mock($class, $app = [])
-    {
-        return Mockery::mock($class, $app);
+        $emptyExceptionMessage = '';
+        try {
+            new Collection(new RouteCollection(), 'all', 'laroute');
+        } catch (ZeroRoutesException $e) {
+            $emptyExceptionMessage = $e->getMessage();
+        }
+        $expectedEmptyMessage = "You don't have any routes!";
+        $this->assertEquals($expectedEmptyMessage, $emptyExceptionMessage);
     }
 }

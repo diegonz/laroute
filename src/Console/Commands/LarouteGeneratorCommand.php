@@ -3,11 +3,11 @@
 namespace Lord\Laroute\Console\Commands;
 
 use Exception;
-use Illuminate\Console\Command;
 use Illuminate\Config\Repository as Config;
+use Illuminate\Console\Command;
+use Lord\Laroute\Generators\GeneratorInterface as Generator;
 use Lord\Laroute\Routes\Collection as Routes;
 use Symfony\Component\Console\Input\InputOption;
-use Lord\Laroute\Generators\GeneratorInterface as Generator;
 
 class LarouteGeneratorCommand extends Command
 {
@@ -160,12 +160,14 @@ class LarouteGeneratorCommand extends Command
             [
                 'namespace',
                 null,
-                InputOption::VALUE_OPTIONAL, sprintf('Javascript namespace for the functions (think _.js) (default: "%s")', $this->config->get('laroute.namespace')),
+                InputOption::VALUE_OPTIONAL,
+                sprintf('Javascript namespace for the functions (think _.js) (default: "%s")', $this->config->get('laroute.namespace')),
             ],
             [
                 'prefix',
                 'pr',
-                InputOption::VALUE_OPTIONAL, sprintf('Prefix for the generated URLs (default: "%s")', $this->config->get('laroute.prefix')),
+                InputOption::VALUE_OPTIONAL,
+                sprintf('Prefix for the generated URLs (default: "%s")', $this->config->get('laroute.prefix')),
             ],
         ];
     }

@@ -2,13 +2,14 @@
 
 namespace Lord\Laroute\Tests\Generators;
 
-use Mockery;
-use PHPUnit\Framework\TestCase;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Filesystem\Filesystem;
 use Lord\Laroute\Compilers\CompilerInterface;
-use Lord\Laroute\Generators\TemplateGenerator;
 use Lord\Laroute\Generators\GeneratorInterface;
-use Illuminate\Contracts\Filesystem\FileNotFoundException;
+use Lord\Laroute\Generators\TemplateGenerator;
+use Mockery;
+use Mockery\MockInterface;
+use PHPUnit\Framework\TestCase;
 
 class TemplateGeneratorTest extends TestCase
 {
@@ -77,7 +78,7 @@ class TemplateGeneratorTest extends TestCase
         Mockery::close();
     }
 
-    protected function mock($class, $app = [])
+    protected function mock($class, $app = []): MockInterface
     {
         return Mockery::mock($class, $app);
     }

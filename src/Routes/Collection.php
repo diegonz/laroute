@@ -4,15 +4,18 @@ namespace Lord\Laroute\Routes;
 
 use Illuminate\Routing\Route;
 use Illuminate\Routing\RouteCollection;
+use Illuminate\Support\Arr;
 use Lord\Laroute\Routes\Exceptions\ZeroRoutesException;
 
 class Collection extends \Illuminate\Support\Collection
 {
     /**
      * Collection constructor.
+     *
      * @param  RouteCollection  $routes
      * @param $filter
      * @param $namespace
+     *
      * @throws ZeroRoutesException
      */
     public function __construct(RouteCollection $routes, $filter, $namespace)
@@ -24,9 +27,9 @@ class Collection extends \Illuminate\Support\Collection
     /**
      * Parse the routes into a jsonable output.
      *
-     * @param RouteCollection $routes
-     * @param string $filter
-     * @param string $namespace
+     * @param  RouteCollection  $routes
+     * @param  string  $filter
+     * @param  string  $namespace
      *
      * @return array
      * @throws ZeroRoutesException
@@ -47,7 +50,7 @@ class Collection extends \Illuminate\Support\Collection
     /**
      * Throw an exception if there aren't any routes to process.
      *
-     * @param RouteCollection $routes
+     * @param  RouteCollection  $routes
      *
      * @throws ZeroRoutesException
      */
@@ -69,12 +72,12 @@ class Collection extends \Illuminate\Support\Collection
      */
     protected function getRouteInformation(Route $route, $filter, $namespace): array
     {
-        $host = $route->domain();
+        $host    = $route->domain();
         $methods = $route->methods();
-        $uri = $route->uri();
-        $name = $route->getName();
-        $action = $route->getActionName();
-        $laroute = array_get($route->getAction(), 'laroute', null);
+        $uri     = $route->uri();
+        $name    = $route->getName();
+        $action  = $route->getActionName();
+        $laroute = Arr::get($route->getAction(), 'laroute', null);
 
         if (! empty($namespace)) {
             $a = $route->getAction();
@@ -84,19 +87,17 @@ class Collection extends \Illuminate\Support\Collection
             }
         }
 
+        $hasAnyRoutes = true;
+
         switch ($filter) {
             case 'all':
-                if ($laroute === false) {
-                    return;
-                }
+                $hasAnyRoutes = $laroute === false;
                 break;
             case 'only':
-                if ($laroute !== true) {
-                    return;
-                }
+                $hasAnyRoutes = $laroute !== true;
                 break;
         }
 
-        return compact('host', 'methods', 'uri', 'name', 'action');
+        return $hasAnyRoutes ? [] : compact('host', 'methods', 'uri', 'name', 'action');
     }
 }
