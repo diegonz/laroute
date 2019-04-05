@@ -38,7 +38,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Lord\\Laroute\\": "src/"
+            "Lord\\Laroute\\": "src"
         }
     },
     "autoload-dev": {
@@ -53,5 +53,11 @@
     "config": {
         "sort-packages": true
     },
-    "minimum-stability": "dev"
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Lord\\Laroute\\LarouteServiceProvider"
+            ]
+        }
+    }
 }

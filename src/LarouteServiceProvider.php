@@ -20,8 +20,9 @@ class LarouteServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $source = $this->getConfigPath();
-        $this->publishes([$source => config_path('laroute.php')], 'config');
+        $this->publishes([
+            __DIR__.'/../config/laroute.php' => config_path('laroute.php'),
+        ], 'config');
     }
 
     /**
@@ -31,24 +32,14 @@ class LarouteServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $source = $this->getConfigPath();
-        $this->mergeConfigFrom($source, 'laroute');
+        if ($this->app->runningInConsole()) {
+            // Publishing config
+            $this->mergeConfigFrom(__DIR__.'/../config/laroute.php', 'laroute');
 
-        $this->registerGenerator();
-
-        $this->registerCompiler();
-
-        $this->registerCommand();
-    }
-
-    /**
-     * Get the config path.
-     *
-     * @return string
-     */
-    protected function getConfigPath(): string
-    {
-        return dirname(__DIR__).'/config/laroute.php';
+            $this->registerGenerator();
+            $this->registerCompiler();
+            $this->registerCommand();
+        }
     }
 
     /**
@@ -78,22 +69,24 @@ class LarouteServiceProvider extends ServiceProvider
      */
     protected function registerCommand(): void
     {
-        $this->app->singleton(
-            'command.laroute.generate',
-            static function ($app) {
-                /* @var Application $app */
-                $config = $app['config'];
-                $routes = new Routes(
-                    $app['router']->getRoutes(),
-                    $config->get('laroute.filter', 'all'),
-                    $config->get('laroute.action_namespace', '')
-                );
-                $generator = $app->make(GeneratorInterface::class);
+        // Register CLI command
+        if ($this->app->runningInConsole()) {
+            $this->app->singleton(
+                'command.laroute.generate',
+                static function ($app) {
+                    /* @var Application $app */
+                    $config    = $app['config'];
+                    $routes    = new Routes(
+                        $app['router']->getRoutes(),
+                        $config->get('laroute.filter', 'all'),
+                        $config->get('laroute.action_namespace', '')
+                    );
+                    $generator = $app->make(GeneratorInterface::class);
 
-                return new LarouteGeneratorCommand($config, $routes, $generator);
-            }
-        );
-
-        $this->commands('command.laroute.generate');
+                    return new LarouteGeneratorCommand($config, $routes, $generator);
+                }
+            );
+            $this->commands('command.laroute.generate');
+        }
     }
 }
