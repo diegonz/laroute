@@ -2,10 +2,10 @@
 
 namespace Lord\Laroute\Tests\Routes;
 
-use Illuminate\Routing\RouteCollection;
-use Illuminate\Support\Collection;
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Illuminate\Support\Collection;
+use Illuminate\Routing\RouteCollection;
 
 class CollectionTest extends TestCase
 {
@@ -36,7 +36,7 @@ class CollectionTest extends TestCase
 
     public function testItIsAProperInstance()
     {
-        /** @noinspection PhpParamsInspection */
+        /* @noinspection PhpParamsInspection */
         $this->assertInstanceOf(RouteCollection::class, $this->routeCollection);
     }
 
@@ -44,7 +44,6 @@ class CollectionTest extends TestCase
     {
         $this->assertTrue(true);
     }
-
 
     public function tearDown()
     {

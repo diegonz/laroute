@@ -4,12 +4,12 @@ namespace Lord\Laroute;
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
-use Lord\Laroute\Console\Commands\LarouteGeneratorCommand;
-use Lord\Laroute\Routes\Collection as Routes;
-use Lord\Laroute\Generators\GeneratorInterface;
-use Lord\Laroute\Generators\TemplateGenerator;
-use Lord\Laroute\Compilers\CompilerInterface;
 use Lord\Laroute\Compilers\TemplateCompiler;
+use Lord\Laroute\Compilers\CompilerInterface;
+use Lord\Laroute\Routes\Collection as Routes;
+use Lord\Laroute\Generators\TemplateGenerator;
+use Lord\Laroute\Generators\GeneratorInterface;
+use Lord\Laroute\Console\Commands\LarouteGeneratorCommand;
 
 class LarouteServiceProvider extends ServiceProvider
 {
@@ -42,7 +42,7 @@ class LarouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * Get the config path
+     * Get the config path.
      *
      * @return string
      */
@@ -72,7 +72,7 @@ class LarouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the command
+     * Register the command.
      *
      * @return void
      */
