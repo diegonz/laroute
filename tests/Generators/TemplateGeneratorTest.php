@@ -1,10 +1,16 @@
 <?php
 
-namespace Lord\Laroute\Generators;
+namespace Lord\Laroute\Tests\Generators;
 
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
+use Illuminate\Filesystem\Filesystem;
+use Lord\Laroute\Compilers\CompilerInterface;
+use Lord\Laroute\Generators\GeneratorInterface;
+use Lord\Laroute\Generators\TemplateGenerator;
 use Mockery;
+use PHPUnit\Framework\TestCase;
 
-class TemplateGeneratorTest extends \PHPUnit_Framework_TestCase
+class TemplateGeneratorTest extends TestCase
 {
     protected $compiler;
 
@@ -16,26 +22,28 @@ class TemplateGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->compiler   = $this->mock('Lord\Laroute\Compilers\CompilerInterface');
-        $this->filesystem = $this->mock('Illuminate\Filesystem\Filesystem');
+        $this->compiler = $this->mock(CompilerInterface::class);
+        $this->filesystem = $this->mock(Filesystem::class);
 
+        /** @noinspection PhpParamsInspection */
         $this->generator = new TemplateGenerator($this->compiler, $this->filesystem);
     }
 
-    public function testItIsOfTheCorrectInterface()
+    public function testItIsOfTheCorrectInterface(): void
     {
-        $this->assertInstanceOf(
-            'Lord\Laroute\Generators\GeneratorInterface',
-            $this->generator
-        );
+        /** @noinspection PhpParamsInspection */
+        $this->assertInstanceOf(GeneratorInterface::class, $this->generator);
     }
 
-    public function testItWillCompileAndSaveATemplate()
+    /**
+     * @throws FileNotFoundException
+     */
+    public function testItWillCompileAndSaveATemplate(): void
     {
-        $template     = "Template";
+        $template = 'Template';
         $templatePath = '/templatePath';
         $templateData = ['foo', 'bar'];
-        $filePath     = '/filePath';
+        $filePath = '/filePath';
 
         $this->filesystem
             ->shouldReceive('get')
@@ -60,6 +68,7 @@ class TemplateGeneratorTest extends \PHPUnit_Framework_TestCase
             ->with($filePath, $template);
 
         $actual = $this->generator->compile($templatePath, $templateData, $filePath);
+
         $this->assertSame($actual, $filePath);
     }
 
@@ -70,8 +79,6 @@ class TemplateGeneratorTest extends \PHPUnit_Framework_TestCase
 
     protected function mock($class, $app = [])
     {
-        $mock = Mockery::mock($class, $app);
-
-        return $mock;
+        return Mockery::mock($class, $app);
     }
 }

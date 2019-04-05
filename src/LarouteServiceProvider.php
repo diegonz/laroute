@@ -2,9 +2,14 @@
 
 namespace Lord\Laroute;
 
+use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use Lord\Laroute\Console\Commands\LarouteGeneratorCommand;
 use Lord\Laroute\Routes\Collection as Routes;
+use Lord\Laroute\Generators\GeneratorInterface;
+use Lord\Laroute\Generators\TemplateGenerator;
+use Lord\Laroute\Compilers\CompilerInterface;
+use Lord\Laroute\Compilers\TemplateCompiler;
 
 class LarouteServiceProvider extends ServiceProvider
 {
@@ -13,7 +18,7 @@ class LarouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $source = $this->getConfigPath();
         $this->publishes([$source => config_path('laroute.php')], 'config');
@@ -24,7 +29,7 @@ class LarouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $source = $this->getConfigPath();
         $this->mergeConfigFrom($source, 'laroute');
@@ -41,9 +46,9 @@ class LarouteServiceProvider extends ServiceProvider
      *
      * @return string
      */
-    protected function getConfigPath()
+    protected function getConfigPath(): string
     {
-        return realpath(__DIR__.'/../config/laroute.php');
+        return dirname(__DIR__).'/config/laroute.php';
     }
 
     /**
@@ -51,12 +56,9 @@ class LarouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerGenerator()
+    protected function registerGenerator(): void
     {
-        $this->app->bind(
-            'Lord\Laroute\Generators\GeneratorInterface',
-            'Lord\Laroute\Generators\TemplateGenerator'
-        );
+        $this->app->bind(GeneratorInterface::class, TemplateGenerator::class);
     }
 
     /**
@@ -64,12 +66,9 @@ class LarouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerCompiler()
+    protected function registerCompiler(): void
     {
-        $this->app->bind(
-            'Lord\Laroute\Compilers\CompilerInterface',
-            'Lord\Laroute\Compilers\TemplateCompiler'
-        );
+        $this->app->bind(CompilerInterface::class, TemplateCompiler::class);
     }
 
     /**
@@ -77,14 +76,19 @@ class LarouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerCommand()
+    protected function registerCommand(): void
     {
         $this->app->singleton(
             'command.laroute.generate',
-            function ($app) {
-                $config     = $app['config'];
-                $routes     = new Routes($app['router']->getRoutes(), $config->get('laroute.filter', 'all'), $config->get('laroute.action_namespace', ''));
-                $generator  = $app->make('Lord\Laroute\Generators\GeneratorInterface');
+            static function ($app) {
+                /* @var Application $app */
+                $config = $app['config'];
+                $routes = new Routes(
+                    $app['router']->getRoutes(),
+                    $config->get('laroute.filter', 'all'),
+                    $config->get('laroute.action_namespace', '')
+                );
+                $generator = $app->make(GeneratorInterface::class);
 
                 return new LarouteGeneratorCommand($config, $routes, $generator);
             }

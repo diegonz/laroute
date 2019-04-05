@@ -12,5 +12,5 @@ interface CompilerInterface
      *
      * @return string
      */
-    public function compile($template, $data);
+    public function compile($template, $data): string;
 }

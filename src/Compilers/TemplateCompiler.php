@@ -12,13 +12,14 @@ class TemplateCompiler implements CompilerInterface
      *
      * @return string
      */
-    public function compile($template, $data)
+    public function compile($template, $data): string
     {
         foreach ($data as $key => $value) {
             $key = strtoupper($key);
 
-            if(is_bool($value))
+            if(is_bool($value)) {
                 $value = $value ? 'true' : 'false';
+            }
 
             $template = preg_replace("#\\$$key\\$#i", $value, $template);
         }

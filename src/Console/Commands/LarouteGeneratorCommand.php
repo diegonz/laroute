@@ -2,6 +2,7 @@
 
 namespace Lord\Laroute\Console\Commands;
 
+use Exception;
 use Lord\Laroute\Routes\Collection as Routes;
 use Lord\Laroute\Generators\GeneratorInterface as Generator;
 
@@ -36,14 +37,14 @@ class LarouteGeneratorCommand extends Command
     /**
      * An array of all the registered routes.
      *
-     * @var \Lord\Laroute\Routes\Collection
+     * @var Routes
      */
     protected $routes;
 
     /**
      * The generator instance.
      *
-     * @var \Lord\Laroute\Generators\GeneratorInterface
+     * @var Generator
      */
     protected $generator;
 
@@ -68,7 +69,7 @@ class LarouteGeneratorCommand extends Command
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         try {
             $filePath = $this->generator->compile(
@@ -78,7 +79,7 @@ class LarouteGeneratorCommand extends Command
             );
 
             $this->info("Created: {$filePath}");
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->error($e->getMessage());
         }
     }
@@ -88,7 +89,7 @@ class LarouteGeneratorCommand extends Command
      *
      * @return string
      */
-    protected function getTemplatePath()
+    protected function getTemplatePath(): string
     {
         return $this->config->get('laroute.template');
     }
@@ -98,7 +99,7 @@ class LarouteGeneratorCommand extends Command
      *
      * @return array
      */
-    protected function getTemplateData()
+    protected function getTemplateData(): array
     {
         $namespace  = $this->getOptionOrConfig('namespace');
         $routes     = $this->routes->toJSON();
@@ -115,7 +116,7 @@ class LarouteGeneratorCommand extends Command
      *
      * @return string
      */
-    protected function getFileGenerationPath()
+    protected function getFileGenerationPath(): string
     {
         $path     = $this->getOptionOrConfig('path');
         $filename = $this->getOptionOrConfig('filename');
@@ -144,14 +145,14 @@ class LarouteGeneratorCommand extends Command
      *
      * @return array
      */
-    protected function getOptions()
+    protected function getOptions(): array
     {
         return [
             [
                 'path',
                 'p',
                 InputOption::VALUE_OPTIONAL,
-                sprintf('Path to the javscript assets directory (default: "%s")', $this->config->get('laroute.path'))
+                sprintf('Path to the javascript assets directory (default: "%s")', $this->config->get('laroute.path'))
             ],
             [
                 'filename',

@@ -8,8 +8,16 @@ use Lord\Laroute\Routes\Exceptions\ZeroRoutesException;
 
 class Collection extends \Illuminate\Support\Collection
 {
+    /**
+     * Collection constructor.
+     * @param  RouteCollection  $routes
+     * @param $filter
+     * @param $namespace
+     * @throws ZeroRoutesException
+     */
     public function __construct(RouteCollection $routes, $filter, $namespace)
     {
+        parent::__construct($routes);
         $this->items = $this->parseRoutes($routes, $filter, $namespace);
     }
 
@@ -23,7 +31,7 @@ class Collection extends \Illuminate\Support\Collection
      * @return array
      * @throws ZeroRoutesException
      */
-    protected function parseRoutes(RouteCollection $routes, $filter, $namespace)
+    protected function parseRoutes(RouteCollection $routes, $filter, $namespace): array
     {
         $this->guardAgainstZeroRoutes($routes);
 
@@ -43,7 +51,7 @@ class Collection extends \Illuminate\Support\Collection
      *
      * @throws ZeroRoutesException
      */
-    protected function guardAgainstZeroRoutes(RouteCollection $routes)
+    protected function guardAgainstZeroRoutes(RouteCollection $routes): void
     {
         if (count($routes) < 1) {
             throw new ZeroRoutesException("You don't have any routes!");
@@ -53,13 +61,13 @@ class Collection extends \Illuminate\Support\Collection
     /**
      * Get the route information for a given route.
      *
-     * @param $route \Illuminate\Routing\Route
+     * @param $route Route
      * @param $filter string
      * @param $namespace string
      *
      * @return array
      */
-    protected function getRouteInformation(Route $route, $filter, $namespace)
+    protected function getRouteInformation(Route $route, $filter, $namespace): array
     {
         $host    = $route->domain();
         $methods = $route->methods();
@@ -78,10 +86,14 @@ class Collection extends \Illuminate\Support\Collection
 
         switch ($filter) {
             case 'all':
-                if($laroute === false) return null;
+                if($laroute === false) {
+                    return null;
+                }
                 break;
             case 'only':
-                if($laroute !== true) return null;
+                if($laroute !== true) {
+                    return null;
+                }
                 break;
         }
 

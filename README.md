@@ -1,5 +1,12 @@
 # Laroute
 
+[![Travis Build Status](https://img.shields.io/travis/diegonz/laroute/master.svg?style=flat-square)](https://travis-ci.org/diegonz/laroute)
+[![StyleCI Status](https://github.styleci.io/repos/179652493/shield?branch=master)](https://github.styleci.io/repos/179652493)
+[![Codecov Status](https://img.shields.io/codecov/c/github/diegonz/laroute.svg?style=flat-square)](https://codecov.io/gh/diegonz/laroute)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/diegonz/laroute.svg?style=flat-square)](https://packagist.org/packages/diegonz/laroute)
+
+Forked from [aaronlord/laroute](https://github.com/aaronlord/laroute).
+
 [Laravel](http://laravel.com/) has some pretty sweet [helper functions](http://laravel.com/docs/helpers#urls) for generating urls/links and its auto-json-magic makes it building APIs super easy. It's my go-to choice for building single-page js apps, but routing can quickly become a bit of a pain.
 
 Wouldn't it be amazing if we could access our Laravel routes from JavaScript?
@@ -16,23 +23,9 @@ Install the usual [composer](https://getcomposer.org/) way.
 ```json
 {
 	"require" : {
-		"lord/laroute" : "2.*"
+		"diegonz/laroute" : "2.*"
 	}
 }
-```
-
-n.b Laravel 4.x users, check out [version 1.3.2](https://github.com/aaronlord/laroute/tree/v1.3.2)
-
-###### app/config/app.php
-```php
-	...
-	
-	'providers' => array(
-		...
-		Lord\Laroute\LarouteServiceProvider::class,
-	],
-	
-	...
 ```
 
 ### Configure (optional)
@@ -94,7 +87,7 @@ return [
      * the ported helper Laravel url/route functions and the route data to go
      * with them.
      */
-    'template' => 'vendor/lord/laroute/src/templates/laroute.js',
+    'template' => 'vendor/diegonz/laroute/src/templates/laroute.js',
     
     /*
      * Appends a prefix to URLs. By default the prefix is an empty string.
@@ -242,7 +235,10 @@ Route::group(['laroute' => false], function () {
 
 ```
 
+## Contributing
 
-## Licence
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
-[View the licence in this repo.](https://github.com/aaronlord/laroute/blob/master/LICENSE)
+## License
+
+The MIT License ([MIT](./LICENSE.md)). Please see license file for more information.

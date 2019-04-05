@@ -2,6 +2,7 @@
 
 namespace Lord\Laroute\Generators;
 
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Filesystem\Filesystem;
 use Lord\Laroute\Compilers\CompilerInterface as Compiler;
 
@@ -10,22 +11,22 @@ class TemplateGenerator implements GeneratorInterface
     /**
      * The compiler instance.
      *
-     * @var \Lord\Laroute\Compilers\CompilerInterface
+     * @var Compiler
      */
     protected $compiler;
 
     /**
      * The filesystem instance.
      *
-     * @var \Illuminate\Filesystem\Filesystem
+     * @var Filesystem
      */
     protected $filesystem;
 
     /**
      * Create a new template generator instance.
      *
-     * @param $compiler   \Lord\Laroute\Compilers\CompilerInterface
-     * @param $filesystem \Illuminate\Filesystem\Filesystem
+     * @param $compiler   Compiler
+     * @param $filesystem Filesystem
      *
      */
     public function __construct(Compiler $compiler, Filesystem $filesystem)
@@ -43,8 +44,9 @@ class TemplateGenerator implements GeneratorInterface
      * @param $filePath
      *
      * @return string
+     * @throws FileNotFoundException
      */
-    public function compile($templatePath, Array $templateData, $filePath)
+    public function compile($templatePath, Array $templateData, $filePath): string
     {
         $template = $this->filesystem->get($templatePath);
 
@@ -57,10 +59,10 @@ class TemplateGenerator implements GeneratorInterface
         return $filePath;
     }
 
-    public function makeDirectory($directory)
+    public function makeDirectory($directory): void
     {
         if ( ! $this->filesystem->isDirectory($directory)) {
-            $this->filesystem->makeDirectory($directory, 0777, true);
+            $this->filesystem->makeDirectory($directory, 0755, true);
         }
     }
 }

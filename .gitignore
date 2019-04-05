@@ -1,6 +1,9 @@
-/vendor
-/node_modules
+build
+docs
+vendor
+node_modules
+coverage
+phpunit.xml
 composer.phar
 composer.lock
-.DS_Store
 .idea

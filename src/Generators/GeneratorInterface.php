@@ -10,8 +10,8 @@ interface GeneratorInterface
     /**
      * Create a new template generator instance.
      *
-     * @param $compiler   \Lord\Laroute\Compilers\CompilerInterface
-     * @param $filesystem \Illuminate\Filesystem\Filesystem
+     * @param $compiler   Compiler
+     * @param $filesystem Filesystem
      *
      */
     public function __construct(Compiler $compiler, Filesystem $filesystem);
@@ -25,5 +25,5 @@ interface GeneratorInterface
      *
      * @return string
      */
-    public function compile($templatePath, Array $templateData, $filePath);
+    public function compile($templatePath, Array $templateData, $filePath): string;
 }

@@ -1,10 +1,13 @@
 <?php
 
-namespace Lord\Laroute\Routes;
+namespace Lord\Laroute\Tests\Routes;
 
+use Illuminate\Routing\RouteCollection;
+use Illuminate\Support\Collection;
 use Mockery;
+use PHPUnit\Framework\TestCase;
 
-class CollectionTest extends \PHPUnit_Framework_TestCase
+class CollectionTest extends TestCase
 {
     protected $routeCollection;
 
@@ -14,13 +17,12 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->routeCollection = $this->mock('Illuminate\Routing\RouteCollection');
-        $this->routes          = $this->createInstance();
+        $this->routeCollection = $this->mock(RouteCollection::class);
+        $this->routes = $this->createInstance();
     }
 
     protected function createInstance()
     {
-        return; // Life is too short.
         $this->routeCollection
             ->shouldReceive('count')
             ->once()
@@ -30,6 +32,12 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
             ->andReturn(['Huh?']);
 
         return new Collection($this->routeCollection);
+    }
+
+    public function testItIsAProperInstance()
+    {
+        /** @noinspection PhpParamsInspection */
+        $this->assertInstanceOf(RouteCollection::class, $this->routeCollection);
     }
 
     public function testIFailedAtTestingACollection()
@@ -45,8 +53,6 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
     protected function mock($class, $app = [])
     {
-        $mock = Mockery::mock($class, $app);
-
-        return $mock;
+        return Mockery::mock($class, $app);
     }
 }
