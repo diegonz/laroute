@@ -2,10 +2,10 @@
 
 namespace Lord\Laroute\Tests\Console\Commands;
 
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Route;
-use Lord\Laroute\LarouteServiceProvider;
 use Orchestra\Testbench\TestCase;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
+use Lord\Laroute\LarouteServiceProvider;
 
 class LarouteGeneratorCommandTest extends TestCase
 {
@@ -36,7 +36,6 @@ class LarouteGeneratorCommandTest extends TestCase
             'as'   => 'exotic',
             'uses' => 'AwayController@exotic',
         ]);
-
 
         Route::get('/ignored', [
             'laroute' => false,
@@ -79,5 +78,4 @@ class LarouteGeneratorCommandTest extends TestCase
 
         $this->assertSame('Created: public/js/laroute-test.js'.PHP_EOL, $output);
     }
-
 }
