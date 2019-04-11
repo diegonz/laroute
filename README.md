@@ -1,11 +1,11 @@
 # Laroute
 
-[![Travis Build Status](https://img.shields.io/travis/diegonz/laroute/master.svg?style=flat-square)](https://travis-ci.org/diegonz/laroute)
-[![StyleCI Status](https://github.styleci.io/repos/179652493/shield?branch=master)](https://github.styleci.io/repos/179652493)
+[![Travis Build Status](https://img.shields.io/travis/diegonz/laroute/develop.svg?style=flat-square)](https://travis-ci.org/diegonz/laroute)
+[![StyleCI Status](https://github.styleci.io/repos/179652493/shield?branch=develop)](https://github.styleci.io/repos/179652493)
 [![Codecov Status](https://img.shields.io/codecov/c/github/diegonz/laroute.svg?style=flat-square)](https://codecov.io/gh/diegonz/laroute)
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/diegonz/laroute.svg?style=flat-square)](https://packagist.org/packages/diegonz/laroute)
 
-Forked from [aaronlord/laroute](https://github.com/aaronlord/laroute).
+Forked from [aaronlord/laroute](https://github.com/aaronlord/laroute). Badges taken from develop branch.
 
 [Laravel](http://laravel.com/) has some pretty sweet [helper functions](http://laravel.com/docs/helpers#urls) for generating urls/links and its auto-json-magic makes it building APIs super easy. It's my go-to choice for building single-page js apps, but routing can quickly become a bit of a pain.
 

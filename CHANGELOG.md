@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 - Added .gitattributes file 
 - Added PHP 7.1, 7.2 and 7.3 support
 - Added orchestra/testbench as dev dependency
+- Added artisan command simple file creation test, generating a template js file for karma tests.
 
 ### Changed
 

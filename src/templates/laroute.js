@@ -20,9 +20,8 @@
             },
 
             url: function (url, parameters) {
-                parameters = parameters || [];
-
-                var uri = url + '/' + parameters.join('/');
+                var paramIsEmptyObj = Object.keys(parameters).length === 0 && parameters.constructor === Object;
+                var uri = !parameters || paramIsEmptyObj ? url : url.concat('/' + parameters.join('/'));
 
                 return this.getCorrectUrl(uri);
             },
@@ -179,17 +178,16 @@
     /**
      * Expose the class either via AMD, CommonJS or the global object
      */
-    if (typeof define === 'function' && define.amd) {
-        define(function () {
-            return laroute;
-        });
-    }
-    else if (typeof module === 'object' && module.exports){
-        module.exports = laroute;
-    }
-    else {
-        window.$NAMESPACE$ = laroute;
-    }
+    // if (typeof define === 'function' && define.amd) {
+    //     define(function () {
+    //         return laroute;
+    //     });
+    // }
+    // else if (typeof module === 'object' && module.exports){
+    //     module.exports = laroute;
+    // }
+    // else {}
+    window.$NAMESPACE$ = laroute;
 
 }).call(this);
 

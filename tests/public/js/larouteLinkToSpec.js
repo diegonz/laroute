@@ -11,7 +11,7 @@ define(['laroute'], function (Laroute) {
         });
 
         it('can generate an html link to a url with attributes', function () {
-            expect(laroute.link_to('foo/bar', 'Foo', { style : 'color:#bada55;' })).toBe('<a href="/foo/bar" style="color:#bada55;">Foo</a>')
+            expect(laroute.link_to('foo/bar', 'Foo', {style: 'color:#bada55;'})).toBe('<a href="/foo/bar" style="color:#bada55;">Foo</a>')
         });
     });
 

@@ -58,8 +58,13 @@ class LarouteGeneratorCommandTest extends TestCase
             Route::resource('resource/{resource}', 'GroupResourceController');
         });
 
+        $app['config']->set('laroute.namespace', 'laroute');
+        $app['config']->set('laroute.filename', 'laroute');
+        $app['config']->set('laroute.absolute', false);
+        $app['config']->set('laroute.filter', 'all');
+        $app['config']->set('laroute.action_namespace', '');
         $app['config']->set('laroute.template', 'src/templates/laroute.js');
-        $app['config']->set('laroute.filename', 'laroute-test');
+        $app['config']->set('laroute.action_prefix', '');
     }
 
     protected function getPackageProviders($app)
@@ -76,6 +81,6 @@ class LarouteGeneratorCommandTest extends TestCase
         $this->artisan('laroute:generate');
         $output = Artisan::output();
 
-        $this->assertSame('Created: public/js/laroute-test.js'.PHP_EOL, $output);
+        $this->assertSame('Created: public/js/laroute.js'.PHP_EOL, $output);
     }
 }
