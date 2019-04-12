@@ -3,9 +3,9 @@
 namespace Lord\Laroute\Tests\Routes;
 
 use Illuminate\Routing\Route;
-use Illuminate\Routing\RouteCollection;
-use Lord\Laroute\Routes\Collection;
 use PHPUnit\Framework\TestCase;
+use Lord\Laroute\Routes\Collection;
+use Illuminate\Routing\RouteCollection;
 
 class CollectionTest extends TestCase
 {
