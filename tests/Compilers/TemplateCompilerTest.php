@@ -2,10 +2,9 @@
 
 namespace Lord\Laroute\Tests\Compilers;
 
-use Mockery;
-use PHPUnit\Framework\TestCase;
-use Lord\Laroute\Compilers\TemplateCompiler;
 use Lord\Laroute\Compilers\CompilerInterface;
+use Lord\Laroute\Compilers\TemplateCompiler;
+use PHPUnit\Framework\TestCase;
 
 class TemplateCompilerTest extends TestCase
 {
@@ -31,10 +30,5 @@ class TemplateCompilerTest extends TestCase
         $expected = 'Hello Stranger, my name is John Doe. True is true';
 
         $this->assertSame($expected, $this->compiler->compile($template, $data));
-    }
-
-    public function tearDown()
-    {
-        Mockery::close();
     }
 }

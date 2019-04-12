@@ -7,7 +7,6 @@
 
 # Folders:
 /.github            export-ignore
-/public             export-ignore
 /tests              export-ignore
 
 # Files:
@@ -18,11 +17,12 @@
 /.styleci.yml       export-ignore
 /CHANGELOG.md       export-ignore
 /CONTRIBUTING.md    export-ignore
+/README.md          export-ignore
 /gruntfile.js       export-ignore
-/laroute.png        export-ignore
 /karma.conf.js      export-ignore
 /karma.js           export-ignore
+/laroute.png        export-ignore
 /package.json       export-ignore
 /package.json.lock  export-ignore
 /phpunit.xml.dist   export-ignore
-/README.md          export-ignore
+/run-tests.sh       export-ignore

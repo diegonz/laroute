@@ -2,10 +2,9 @@
 
 namespace Lord\Laroute\Routes;
 
-use Illuminate\Support\Arr;
 use Illuminate\Routing\Route;
 use Illuminate\Routing\RouteCollection;
-use Lord\Laroute\Routes\Exceptions\ZeroRoutesException;
+use Illuminate\Support\Arr;
 
 class Collection extends \Illuminate\Support\Collection
 {
@@ -15,8 +14,6 @@ class Collection extends \Illuminate\Support\Collection
      * @param  RouteCollection  $routes
      * @param $filter
      * @param $namespace
-     *
-     * @throws ZeroRoutesException
      */
     public function __construct(RouteCollection $routes, $filter, $namespace)
     {
@@ -32,33 +29,18 @@ class Collection extends \Illuminate\Support\Collection
      * @param  string  $namespace
      *
      * @return array
-     * @throws ZeroRoutesException
      */
     protected function parseRoutes(RouteCollection $routes, $filter, $namespace): array
     {
-        $this->guardAgainstZeroRoutes($routes);
-
         $results = [];
-
-        foreach ($routes as $route) {
-            $results[] = $this->getRouteInformation($route, $filter, $namespace);
+        if ($routes->count() > 0) {
+            foreach ($routes as $route) {
+                $results[] = $this->getRouteInformation($route, $filter, $namespace);
+            }
         }
 
         return array_values(array_filter($results));
-    }
 
-    /**
-     * Throw an exception if there aren't any routes to process.
-     *
-     * @param  RouteCollection  $routes
-     *
-     * @throws ZeroRoutesException
-     */
-    protected function guardAgainstZeroRoutes(RouteCollection $routes): void
-    {
-        if (count($routes) < 1) {
-            throw new ZeroRoutesException("You don't have any routes!");
-        }
     }
 
     /**

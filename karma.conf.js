@@ -16,7 +16,7 @@ module.exports = function (config) {
         files: [
             'karma.js',
             {pattern: 'public/js/**/*.js', included: false},
-            {pattern: 'tests/public/js/**/*Spec.js', included: false}
+            {pattern: 'tests/js/**/*Spec.js', included: false}
         ],
 
         // list of files / patterns to exclude
@@ -53,7 +53,7 @@ module.exports = function (config) {
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        // PhantomJS throws an error due to full page reloading
+        // PhantomJS throws an error due to full page reloading or timeout
         browsers: ['Chrome', 'Firefox'],
 
 

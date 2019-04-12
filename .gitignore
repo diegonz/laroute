@@ -1,9 +1,8 @@
-build
-docs
-vendor
-node_modules
-coverage
-phpunit.xml
-composer.phar
-composer.lock
-.idea
+/.idea
+/build
+/public
+/vendor
+/node_modules
+/coverage
+/composer.lock
+/composer.phar

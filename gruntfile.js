@@ -5,7 +5,7 @@ module.exports = function (grunt) {
         uglify : {
             build : {
                 files : {
-                    'src/templates/laroute.min.js' : 'src/templates/laroute.js'
+                    'resources/js/templates/laroute.min.js' : 'resources/js/templates/laroute.js'
                 }
             }
         }

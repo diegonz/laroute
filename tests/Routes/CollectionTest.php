@@ -3,10 +3,9 @@
 namespace Lord\Laroute\Tests\Routes;
 
 use Illuminate\Routing\Route;
-use PHPUnit\Framework\TestCase;
-use Lord\Laroute\Routes\Collection;
 use Illuminate\Routing\RouteCollection;
-use Lord\Laroute\Routes\Exceptions\ZeroRoutesException;
+use Lord\Laroute\Routes\Collection;
+use PHPUnit\Framework\TestCase;
 
 class CollectionTest extends TestCase
 {
@@ -28,9 +27,6 @@ class CollectionTest extends TestCase
         $this->routeCollection->add($this->testRoute);
     }
 
-    /**
-     * @throws \Lord\Laroute\Routes\Exceptions\ZeroRoutesException
-     */
     public function testParseRoutesAndGetRouteInformation(): void
     {
         $allCollection = new Collection($this->routeCollection, 'all', 'laroute');
@@ -42,17 +38,5 @@ class CollectionTest extends TestCase
         $onlyRoutes = $onlyCollection->toJson();
         $expectedOnlyJson = '[]';
         $this->assertEquals($expectedOnlyJson, $onlyRoutes);
-    }
-
-    public function testGuardAgainstZeroRoutes(): void
-    {
-        $emptyExceptionMessage = '';
-        try {
-            new Collection(new RouteCollection(), 'all', 'laroute');
-        } catch (ZeroRoutesException $e) {
-            $emptyExceptionMessage = $e->getMessage();
-        }
-        $expectedEmptyMessage = "You don't have any routes!";
-        $this->assertEquals($expectedEmptyMessage, $emptyExceptionMessage);
     }
 }

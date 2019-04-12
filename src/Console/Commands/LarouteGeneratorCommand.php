@@ -2,12 +2,12 @@
 
 namespace Lord\Laroute\Console\Commands;
 
-use Exception;
-use Illuminate\Console\Command;
 use Illuminate\Config\Repository as Config;
-use Lord\Laroute\Routes\Collection as Routes;
-use Symfony\Component\Console\Input\InputOption;
+use Illuminate\Console\Command;
 use Lord\Laroute\Generators\GeneratorInterface as Generator;
+use Lord\Laroute\Routes\Collection as Routes;
+use Lord\Laroute\Routes\Exceptions\ZeroRoutesException;
+use Symfony\Component\Console\Input\InputOption;
 
 class LarouteGeneratorCommand extends Command
 {
@@ -66,19 +66,29 @@ class LarouteGeneratorCommand extends Command
      * Execute the console command.
      *
      * @return void
+     * @throws \Lord\Laroute\Routes\Exceptions\ZeroRoutesException
      */
     public function handle(): void
     {
-        try {
-            $filePath = $this->generator->compile(
-                $this->getTemplatePath(),
-                $this->getTemplateData(),
-                $this->getFileGenerationPath()
-            );
+        $this->guardAgainstZeroRoutes();
+        $filePath = $this->generator->compile(
+            $this->getTemplatePath(),
+            $this->getTemplateData(),
+            $this->getFileGenerationPath()
+        );
 
-            $this->info("Created: {$filePath}");
-        } catch (Exception $e) {
-            $this->error($e->getMessage());
+        $this->info("Created: {$filePath}");
+    }
+
+    /**
+     * Throw an exception if there aren't any routes to process.
+     *
+     * @throws \Lord\Laroute\Routes\Exceptions\ZeroRoutesException
+     */
+    protected function guardAgainstZeroRoutes(): void
+    {
+        if ($this->routes->isEmpty()) {
+            throw new ZeroRoutesException("You don't have any routes!");
         }
     }
 

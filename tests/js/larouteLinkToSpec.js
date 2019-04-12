@@ -4,7 +4,7 @@ define(['laroute'], function (Laroute) {
 
         it('can generate an html link to a url', function () {
             expect(laroute.link_to('foo/bar')).toBe('<a href="/foo/bar" >/foo/bar</a>');
-        })
+        });
 
         it('can generate a titled html link to a url', function () {
             expect(laroute.link_to('foo/bar', 'Foo')).toBe('<a href="/foo/bar" >Foo</a>');

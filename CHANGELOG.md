@@ -10,8 +10,9 @@ All notable changes to this project will be documented in this file.
 - Added .styleci.yml config file
 - Added .gitattributes file 
 - Added PHP 7.1, 7.2 and 7.3 support
+- Added package auto discovery
 - Added orchestra/testbench as dev dependency
-- Added artisan command simple file creation test, generating a template js file for karma tests.
+- Added more tests
 
 ### Changed
 
@@ -21,10 +22,13 @@ All notable changes to this project will be documented in this file.
 - Updated config files
 - Renamed README filename
 - Renamed phpunit.xml to phpunit.xml.dist
+- Moved zero routes check to artisan command for testability purposes
+- Changed js file paths
 
 ### Removed
 
 - Removed support for Laravel versions lower than 5.5
+- Removed public folder
 
 ## [2.4.8] - 2018-09-11
 

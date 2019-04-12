@@ -16,7 +16,7 @@ class LarouteGeneratorCommandTest extends TestCase
      *
      * @return void
      */
-    protected function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp($app): void
     {
         Route::get('/hello', function () {
             return 'hello';
@@ -58,29 +58,30 @@ class LarouteGeneratorCommandTest extends TestCase
             Route::resource('resource/{resource}', 'GroupResourceController');
         });
 
+        $app['config']->set('laroute.path', 'public/js');
         $app['config']->set('laroute.namespace', 'laroute');
         $app['config']->set('laroute.filename', 'laroute');
         $app['config']->set('laroute.absolute', false);
         $app['config']->set('laroute.filter', 'all');
         $app['config']->set('laroute.action_namespace', '');
-        $app['config']->set('laroute.template', 'src/templates/laroute.js');
+        $app['config']->set('laroute.template', 'resources/js/templates/laroute.min.js');
         $app['config']->set('laroute.action_prefix', '');
     }
 
-    protected function getPackageProviders($app)
+    protected function getPackageProviders($app): array
     {
         return [
             LarouteServiceProvider::class,
         ];
     }
 
-    /** @test */
-    public function the_console_command_creates_a_file()
+    public function testTheConsoleCommandCreatesAFile(): void
     {
         $this->withoutMockingConsoleOutput();
-        $this->artisan('laroute:generate');
+        $this->artisan('laroute:generate --path="public/js"');
         $output = Artisan::output();
 
+        $this->assertFileExists(__DIR__.'/../../../public/js/laroute.js');
         $this->assertSame('Created: public/js/laroute.js'.PHP_EOL, $output);
     }
 }
