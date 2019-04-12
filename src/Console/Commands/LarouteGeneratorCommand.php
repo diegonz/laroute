@@ -2,12 +2,12 @@
 
 namespace Lord\Laroute\Console\Commands;
 
-use Illuminate\Config\Repository as Config;
 use Illuminate\Console\Command;
-use Lord\Laroute\Generators\GeneratorInterface as Generator;
+use Illuminate\Config\Repository as Config;
 use Lord\Laroute\Routes\Collection as Routes;
-use Lord\Laroute\Routes\Exceptions\ZeroRoutesException;
 use Symfony\Component\Console\Input\InputOption;
+use Lord\Laroute\Routes\Exceptions\ZeroRoutesException;
+use Lord\Laroute\Generators\GeneratorInterface as Generator;
 
 class LarouteGeneratorCommand extends Command
 {

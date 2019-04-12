@@ -2,9 +2,9 @@
 
 namespace Lord\Laroute\Tests\Compilers;
 
-use Lord\Laroute\Compilers\CompilerInterface;
-use Lord\Laroute\Compilers\TemplateCompiler;
 use PHPUnit\Framework\TestCase;
+use Lord\Laroute\Compilers\TemplateCompiler;
+use Lord\Laroute\Compilers\CompilerInterface;
 
 class TemplateCompilerTest extends TestCase
 {

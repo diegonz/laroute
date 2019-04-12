@@ -2,9 +2,9 @@
 
 namespace Lord\Laroute\Tests\Console\Commands;
 
+use Orchestra\Testbench\TestCase;
 use Lord\Laroute\LarouteServiceProvider;
 use Lord\Laroute\Routes\Exceptions\ZeroRoutesException;
-use Orchestra\Testbench\TestCase;
 
 class LarouteGeneratorCommandEmptyRoutesTest extends TestCase
 {
@@ -26,7 +26,7 @@ class LarouteGeneratorCommandEmptyRoutesTest extends TestCase
         $emptyExceptionMessage = '';
         try {
             $this->artisan('laroute:generate');
-        } /** @noinspection PhpRedundantCatchClauseInspection */
+        } /* @noinspection PhpRedundantCatchClauseInspection */
         catch (ZeroRoutesException $e) {
             $emptyExceptionMessage = $e->getMessage();
         }

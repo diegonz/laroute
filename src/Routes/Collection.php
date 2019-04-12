@@ -2,9 +2,9 @@
 
 namespace Lord\Laroute\Routes;
 
+use Illuminate\Support\Arr;
 use Illuminate\Routing\Route;
 use Illuminate\Routing\RouteCollection;
-use Illuminate\Support\Arr;
 
 class Collection extends \Illuminate\Support\Collection
 {
@@ -40,7 +40,6 @@ class Collection extends \Illuminate\Support\Collection
         }
 
         return array_values(array_filter($results));
-
     }
 
     /**
